@@ -6,6 +6,7 @@ const db = require('./config/db');
 const app = express();
 const port = 8080;
 
+//heartbeat
 app.get('/', function(req, res) {
   res.send('zeppelin rules');
 

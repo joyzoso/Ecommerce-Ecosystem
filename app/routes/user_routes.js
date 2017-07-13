@@ -1,5 +1,21 @@
-module.exports = function(app, db) {
+
  //create user route
+
+ let ObjectID = require('mongodb').ObjectID;
+
+ module.exports = function(app, db) {
+   app.get('/users/:id', (req, res) => {
+     const id = req.params.id;
+     const details = { '_id': new ObjectID(id) };
+     db.collection('users').findOne(details, (err, item) => {
+       if (err) {
+         res.send({ 'error': 'error dummy' });
+       } else {
+         res.send(item);
+        }
+      });
+  });
+
  app.post('/users', (req, res) => {
    //create user here
    const user = { firstName: req.body.firstName, lastName: req.body.lastName };
@@ -11,6 +27,6 @@ module.exports = function(app, db) {
      }
    });
    console.log(req.body)
-   res.send('howdy')
+  //  res.send('howdy')
  });
 };
