@@ -24,6 +24,7 @@
    app.post('/users', (req, res) => {
      //create user here
      const user = { firstName: req.body.firstName, lastName: req.body.lastName };
+     console.log(req.body);
      db.collection('users').insert(user, (err, result) => {
        if (err) {
          res.send({ 'error': 'error dummy' });
@@ -31,7 +32,7 @@
          res.send(result.ops[0]);
        }
      });
-     console.log(req.body)
+     console.log(req.body.firstName)
     //  res.send('howdy')
    });
 
@@ -41,14 +42,15 @@
        app.put('/users/:id', (req, res) => {
           const id = req.params.id;
           const details = { '_id': new ObjectID(id) };
-          const user = { text: req.body.firstName, lastName: req.body.lastName };
+          const user = { firstName: req.body.firstName, lastName: req.body.lastName };
           db.collection('users').update(details, user, (err, result) => {
             if (err) {
                 res.send({'error':'Error has occurred'});
             } else {
-                res.send(user);
+                res.send(req.body.firstName + " Status 200OK User updated");
             }
           });
+          console.log(user);
         });
 
 
